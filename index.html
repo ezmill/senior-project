@@ -1,0 +1,199 @@
+<html>
+<head>
+	<title>Ezra Miller | Senior Project</title>
+	<link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<style>
+	body{
+	    margin:0px;
+	    padding:0px;
+	    font-family: Cardo;
+	}
+	#main{
+		margin: 0 auto;
+		max-width: 750px;
+		padding: 0px 20px 20px 20px;
+	}
+	img{
+		width: 100%;
+	}
+	figure{
+		margin: 0;
+	}
+	figcaption{
+		margin: 30px 0px;
+		font-size: 14px;
+		font-style: italic;
+		text-align: center;
+		color: rgb(175,175,175);
+	}
+	section{
+		margin: 100px 0px 0px 0px;
+	}
+	h1{
+		margin: 10px 0px 0px 0px;
+		font-style: italic;
+		font-style: bold;
+	}
+
+	h2{
+		margin: 5px 0px 0px 0px;
+	}
+
+	p{
+		line-height: 20px;
+	}
+	.play-button{
+		color: black;
+		text-decoration: none;
+	}
+	.interactive{
+		position: relative;
+		width: 750px;
+		height: 400px;
+	}
+	.fa-play {
+		position: absolute;
+		z-index: 1000;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		-moz-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		-o-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+	.fa-pause {
+		position: absolute;
+		z-index: 1000;
+		top: 50%;
+		left: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		-moz-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		-o-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	}
+	.end-link{
+		margin-top: 10px;
+	}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<h1>Feedback loops as an artistic medium for the internet</h1>
+		<i><p>by <a href="http://ezramiller.biz/">Ezra Miller</a></p></i>
+
+		<section>
+			<h2>What is feedback?</h2>
+			<p>Feedback is a process by which the output of a system is fed back into the same system as input. This seemingly simple rule is the basis for complex visual systems when feedback is looped infintely.</p>
+			<p>In terms of visual feedback, the most notable example would be video feedback. By connecting the output of a camera to a screen, and then aiming the camera at the screen, complex visual patterns emerge.</p>
+			<!-- add in youtube video of video feedback, or make ur own -->
+			<figure>
+				<iframe width="750" height="400" src="https://www.youtube.com/embed/OWnC9tSA3iA?t=10s" frameborder="0" allowfullscreen></iframe>
+			    <figcaption>Fig. 1 - An example of video feedback</figcaption>
+			</figure>
+
+			<p>So how can this idea of feedback loops be translated into a medium for making art on the internet?</p>
+			<p>With WebGL!</p>
+		</section>
+
+		<section>
+			<h2>WebGL</h2>
+			<p>WebGL is a 3d graphics library for the web. WebGL utilizes the computer's graphics card in order to execute code separate from the CPU, allowing for a fast 3d experience. A WebGL program is comprised of code written in JavaScript, and shaders, written in GLSL.</p>		
+			<figure>
+				<div id="simpleCube" class="interactive"><a class="play-button" onclick="initSimpleCube(event)" href="#"><i class="fa fa-3x fa-play"></i></a></div>
+				<figcaption>Fig. 2 - A simple cube displayed using Three.js, a WebGL library</figcaption>				
+			</figure>			
+		</section>
+
+		<section>
+			<h2>What are shaders?</h2>
+			<p>Shaders are a computer graphics term used to denote any program which can do shading. That definition says nothing about what a shader <i>really</i> is, so I'll try to make it easier to understand.</p>
+			<p>Shaders are pieces of code which tell the computer how to display something on screen. That something can be a fractal, a 3D Cube, a 2D Square, an image &#8212; really anything. To do this, the shader calculates the position of each vertex of the geometry it is attempting to render to the screen, and also the color and position of each pixel.</p>
+			<!-- add in simple shaders like from shadertoy or three.js with some code next to them and allow users to interact -->
+			<figure>
+				<iframe width="750" height="400" frameborder="0" src="https://www.shadertoy.com/embed/lt2GW3?gui=true&t=10&paused=true" allowfullscreen></iframe>
+			  <figcaption>Fig. 3 - A simple fragment shader</figcaption>
+			</figure>
+			<p>There are two main types of shaders: vertex shaders and fragment shaders. Vertex shaders determine the position and behavior of 3D geometry. According to <a href="http://en.wikipedia.org/wiki/Shader#Pixel_shaders">Wikipedia</a>, "Fragment shaders compute color and other compute color and other attributes of each "fragment" - a technical term usually meaning a single pixel." </p>
+			<p>Shaders are amazing. It blows me away what people are able to create on sites like <a href="http://shadertoy.com/">Shadertoy</a> or <a href="http://glslsandbox.com/">GLSL Sandbox</a>. But for me, the power of shaders comes when they're used in feedback loops.</p>
+		</section>
+
+		<section>
+			<h2>Example: Convolution Feedback</h2>
+			<p>My first example for shader feedback is using a convolution kernel to do feedback to an image texture. What is a convolution kernel? In image processing, it is a technique that uses a matrix of numbers to multiply every pixel in an image to blur, sharpen, emboss, and do other effects to that image.</p>
+			<figure>
+			  <img src="tex/kernel.png" width="750" alt="">
+			  <figcaption>Fig. 4 - From <a target="_blank" href="http://en.wikipedia.org/wiki/Kernel_%28image_processing%29">Wikipedia</a>, two convolution kernels</figcaption>
+			</figure>
+			<figure>
+			  <img src="tex/example-gif.gif" width="750" alt="">
+			  <figcaption>Fig. 5 - A gif demonstrating a repeated use of a convolution kernel, in this case, an emboss kernel in Photoshop</figcaption>
+			</figure>
+			
+			<p>Similar to the filter effect in Photoshop, we can use a blur kernel coupled with a feedback loop to infinitely blur an image:</p>
+			<figure>
+			  <div id="convolutionFeedback" class="interactive"><a class="play-button" onclick="initConvolutionFeedback(event)" href="#convolution"><i class="fa fa-3x fa-play"></i></a></div>
+			  <figcaption>Fig. 6 - Convolution kernel feedback</figcaption>
+			</figure>
+			<p>I've used this convolution feedback technique in projects such as <a target="_blank" href="http://ezra.io/syrup">Syrup</a></p>
+
+
+		</section>
+
+		<section>
+			<h2>Example: Texture Flow</h2>
+			<p>Here I will try to break down a shader that I use in my work all the time. I found this shader on Shadertoy, written by Inigo Quilez:</p>
+			<figure>
+				<iframe width="750" height="400" frameborder="0" src="https://www.shadertoy.com/embed/4dX3zj?gui=true&t=10&paused=true" allowfullscreen></iframe>
+				<figcaption>Fig. 7 - Texture Flow Shader (no feedback)</figcaption>				
+			</figure>
+			<p>Using a similar technique to the convolution feedback, by which the previous frame, which has passed through the shader, is used as the input for the next frame, this cool effect is created. By using a combination of input textures, interesting generative forms can be created:</p>
+			<figure>
+				<div id="textureFlowOG" class="interactive"><a class="play-button" onclick="initTextureFlowOG(event)" href="#"><i class="fa fa-3x fa-play"></i></a></div>
+				<figcaption>Fig. 8 - Texture Flow Shader (with feedback)</figcaption>				
+			</figure>
+			<p>Here is an examples of that same shader and technique, but modified with a little bit of user interaction and tweaked values:</p>
+			<figure>
+				<div id="textureFlow" class="interactive"><a class="play-button" onclick="initTextureFlow(event)" href="#"><i class="fa fa-3x fa-play"></i></a></div>
+				<figcaption>Fig. 9 - Texture Flow Feedback with user interaction</figcaption>				
+			</figure>
+			<p>I've used this feedback shading technique in projects such as <a target="_blank" href="http://iridescentpuddle.com/">Iridescent Puddle</a></p>
+
+		</section>
+
+		<section>
+			<h2>Thanks!</h2>
+			<p>I hope you enjoyed learning a little bit about how feedback loops can be combined with shaders to create interactive internet art.</p>
+
+			<h3>Further reading/viewing/interacting:</h3>
+			<div class="end-link"><a target="_blank" href="http://softology.com.au/videofeedback/videofeedback.htm">Video Feedback Article</a></div>
+			<div class="end-link"><a target="_blank" href="https://softologyblog.wordpress.com/2012/08/16/video-feedback-simulation-take-2/">Video Feedback Article pt. 2</a></div>
+			<div class="end-link"><a target="_blank" href="http://mural.uv.es/jocasa/videofeedback.html">Another Video Feedback Article</a></div>
+			<div class="end-link"><a target="_blank" href="https://www.youtube.com/watch?v=B4Kn3djJMCE">Video Feedback Simulation</a></div>
+			<div class="end-link"><a target="_blank" href="http://pixlpa.com/flow/">Flow by Andrew Benson</a></div>
+			<div class="end-link"><a target="_blank" href="http://adamferriss.com/gush/">Gush by Adam Ferriss</a></div>
+			<div class="end-link"><a target="_blank" href="http://cake23.de/turing-fluid.html">Fluid Simulation with Turing Patterns by Felix Woitzel</a></div>
+			<div class="end-link"><a target="_blank" href="http://ezramiller.biz">http://ezramiller.biz/</a></div>
+
+		</section>
+
+
+	</div>
+	<div id="container"></div>
+<script src="js/three.min.js"></script>
+<script src="js/OrbitControls.js"></script>
+<script src="js/OBJLoader.js"></script>
+<script src="js/passThroughShader.js"></script>
+<script src="js/passShader.js"></script>
+<script src="js/textureFlowShader.js"></script>
+<script src="js/textureFlowOGShader.js"></script>
+<script src="js/convolutionShader.js"></script>
+<script src="js/convolutionFeedback.js"></script>
+<script src="js/simple.js"></script>
+<script src="js/ThreeJsUtils.js"></script>
+<script src="js/textureFlow.js"></script>
+<script src="js/textureFlowOG.js"></script>
+</body>
+</html>
